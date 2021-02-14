@@ -1,0 +1,15 @@
+bp $exentry                 ;* Set a breakpoint at the entry point of the program
+
+* g                         ;* Skip the System(?) breakpoint at LdrpDoDebuggerBreak (needs to be commented sometimes)
+g                           ;* Go to the next breakpoint (which should be the entry point)
+
+kv                          ;* Display stack trace
+
+? rcx                       ;* Print value of first parameter (stored in rcx)
+? $peb                      ;* Compare with variable stored in pseudo(?) register $peb
+*
+bp Kernel32!WriteConsoleA   ;* Set another breakpoint
+g                           ;* go to breakpoint and
+p ; gu                      ;* step into function (p) and go up (gu)
+
+q
